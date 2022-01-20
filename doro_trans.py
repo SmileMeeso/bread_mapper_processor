@@ -32,12 +32,14 @@ def doSearch(keywords, conn):
         id=row['id']
         resultLength = len(newJson['results']['juso'])
 
-        if resultLength > 1 :
-            fullAddress = newJson['results']['juso'][0]['jibunAddr']
-            insertData (id, fullAddress, conn)
-        elif resultLength == 1:
-            fullAddress = newJson['results']['juso']['jibunAddr']
-            insertData (id, fullAddress, conn)
+        print(newJson['results']['juso'])
+
+        # if resultLength > 1 :
+        #     fullAddress = newJson['results']['juso'][0]['jibunAddr']
+        #     insertData (id, fullAddress, conn)
+        # elif resultLength == 1:
+        #     fullAddress = newJson['results']['juso']['jibunAddr']
+        #     insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
