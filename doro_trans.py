@@ -26,7 +26,7 @@ def doSearch(keywords, conn):
 
         response = requests.get(url)
 
-        print(json.loads(json.dumps(xmltodict.parse(response.text), indent=4), ensure_ascii=False))
+        print(json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False)))
 
         # insertData (id, fullAddress, conn)
 
