@@ -53,7 +53,7 @@ def processGetFullAddress(jsonData):
 
 def getFullAddress(jsonData):
     juso = getJusoData(jsonData)
-    fullAddress = getFullAddress(juso)
+    fullAddress = getFullAddressWithJuso(juso)
 
     return fullAddress
 
@@ -70,7 +70,7 @@ def insertDataWithFullAddress (fullAddress, count, total, id, conn):
         logging(count, total, fullAddress, id)
         insertData (id, fullAddress, conn)
 
-def getFullAddress (juso):
+def getFullAddressWithJuso (juso):
     fullAddress = None
     
     if type(juso) is not list and juso is not None:
