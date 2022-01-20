@@ -29,6 +29,7 @@ def doSearch(keywords, conn):
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
 
+        print(newJson['results']['juso'])
         if (len(newJson['results']['juso']) > 0) :
             fullAddress = newJson['results']['juso'][0]['jibunAddr']
             id=row['id']
