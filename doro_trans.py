@@ -52,8 +52,8 @@ def getKeyword (address):
     else:
         return ""
 
-def logging(cur, total):
-    if (cur / 50) == 0:
-        print("searching ..." + str(cur) + "/" + str(total))
+def logging(idx, total):
+    print("searching ..." + str(idx) + "/" + str(total))
+
 
 main()
