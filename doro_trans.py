@@ -29,7 +29,7 @@ def doSearch(keywords, conn):
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
 
-        fullAddress = newJson.results.juso[0].jibunAddr
+        fullAddress = newJson['results']['juso'][0]['jibunAddr']
         id=row['id']
         insertData (id, fullAddress, conn)
 
