@@ -29,9 +29,11 @@ def doSearch(keywords, conn):
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
 
-        fullAddress = newJson['results']['juso'][0]['jibunAddr']
-        id=row['id']
-        insertData (id, fullAddress, conn)
+        if (len(newJson['results']['juso']) > 0) :
+            fullAddress = newJson['results']['juso'][0]['jibunAddr']
+            id=row['id']
+            insertData (id, fullAddress, conn)
+        
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
