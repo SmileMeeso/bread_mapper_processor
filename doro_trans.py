@@ -23,6 +23,6 @@ def doSearch(keywords):
 
         requests.get(url)
 
-        print(url)
+        print(requests.json())
 
 main()
