@@ -102,6 +102,8 @@ def getKeyword (address):
         return splitedAddress[2] + " " + splitedAddress[3]
     elif splitedAddress[3][-1] == '로':
         return splitedAddress[3] + " " + splitedAddress[4]
+    elif splitedAddress[4][-1] == '로':
+        return splitedAddress[4] + " " + splitedAddress[5]
     else:
         return ""
 
