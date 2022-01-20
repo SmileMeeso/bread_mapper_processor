@@ -32,9 +32,9 @@ def getKeyword (address):
     splitedAddress = address.split(' ')
     print(splitedAddress[2][-1])
 
-    if splitedAddress[2][-1] is '로':
+    if splitedAddress[2][-1] == '로':
         return splitedAddress[2] + " " + splitedAddress[3]
-    elif splitedAddress[3][-1] is '로':
+    elif splitedAddress[3][-1] == '로':
         return splitedAddress[3] + " " + splitedAddress[4]
     else:
         return ""
