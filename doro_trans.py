@@ -3,7 +3,7 @@ import psycopg2
 
 # 도로명 주소 변환기
 def main():
-    conn = psycopg2.connect("dbname=localhost user=postgres password=skansmfqh@515 db=bread_mapper_dev")
+    conn = psycopg2.connect("host=localhost dbname=bread_mapper_dev user=postgres password=skansmfqh@515")
     keywords = getKeywords(conn)
     print(keywords)
     doSearch(keywords)
