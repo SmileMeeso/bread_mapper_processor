@@ -1,3 +1,4 @@
+from re import L
 import requests
 import psycopg2
 import psycopg2.extras
@@ -40,7 +41,16 @@ def doSearch(keywords, conn):
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
         
-        fullAddress = newJson['results']['juso']['jibunAddr']
+        json = None
+
+        if newJson['results']:
+            juso = newJson['results']['juso']
+        
+        if type(juso) is not list and json is not None:
+            fullAddress = newJson['results']['juso']['jibunAddr']
+        elif type(juso) is list:
+            fullAddress = newJson['results']['juso'][0]['jibunAddr']
+
         insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
