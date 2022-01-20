@@ -6,6 +6,7 @@ import json
 
 # 도로명 주소 변환기
 def main():
+    print('start ...')
     conn = psycopg2.connect("host=localhost dbname=bread_mapper_dev user=postgres password=skansmfqh@515")
     keywords = getKeywords(conn)
     doSearch(keywords, conn)
