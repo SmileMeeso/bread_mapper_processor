@@ -12,7 +12,8 @@ def main():
     doSearch(keywords)
 
 def getKeywords(conn):
-    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    # cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur = conn.cursor()
     cur.execute("SELECT * FROM store where sido_name IS NULL LIMIT 10")
     result = cur
 
