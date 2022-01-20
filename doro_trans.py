@@ -23,3 +23,4 @@ def doSearch(keywords):
 
         print(url)
 
+main()
