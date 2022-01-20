@@ -6,13 +6,15 @@ import psycopg2.extras
 def main():
     conn = psycopg2.connect("host=localhost dbname=bread_mapper_dev user=postgres password=skansmfqh@515")
     keywords = getKeywords(conn)
-    print(keywords)
+    
+    for row in keywords:
+        print(row)
     doSearch(keywords)
 
 def getKeywords(conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
     cur.execute("SELECT * FROM store where sido_name IS NULL LIMIT 10")
-    result = [r for r in cur.fetchall()]
+    result = cur
 
     return result
 
