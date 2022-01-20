@@ -21,8 +21,8 @@ def doSearch(keywords):
         
         url = "https://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDIyMDEyMDExMjAyMTExMjE1NzA=&currentPage=1&countPerPage=999&keyword=" + keyword
 
-        requests.get(url)
+        response = requests.get(url)
 
-        print(requests.json())
+        print(response.json())
 
 main()
