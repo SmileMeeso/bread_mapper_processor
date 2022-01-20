@@ -16,8 +16,9 @@ def getKeywords(conn):
     return result
 
 def doSearch(keywords):
-    for keyword in keywords: 
-        print(keyword['doro_post_number'])
+    for row in keywords: 
+        keyword = row['doro_post_number']
+        
         url = "https://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDIyMDEyMDExMjAyMTExMjE1NzA=&currentPage=1&countPerPage=999&keyword=" + keyword
 
         requests.get(url)
