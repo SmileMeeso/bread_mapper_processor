@@ -17,13 +17,13 @@ def getKeywords(conn):
 
     cur.execute("SELECT doro_post_address, id FROM store WHERE sido_name IS NULL")
 
-    return cur
+    return cur.fetchall()
 
 def getTotalLength(conn):
     cur = conn.cursor()
     cur.execute("SELECT count(*) FROM store WHERE sido_name IS NULL")
 
-    print(cur)
+    print(cur.fetchone())
 
 def doSearch(keywords, conn):
     total = getTotalLength(conn)
