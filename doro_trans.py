@@ -41,6 +41,7 @@ def doSearch(keywords, conn):
 
         jsonData = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
         
+        print(jsonData)
         fullAddress = processGetFullAddress(jsonData)
         processInsertDataWithFullAddress(fullAddress, count, total, id, conn)
 
