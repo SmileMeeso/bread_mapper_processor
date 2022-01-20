@@ -26,7 +26,7 @@ def getTotalLength(conn):
     print(cur)
 
 def doSearch(keywords, conn):
-    total = getTotalLength()
+    total = getTotalLength(conn)
     count = 0
 
     for row in keywords:
