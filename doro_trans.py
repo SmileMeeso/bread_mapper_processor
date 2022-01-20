@@ -13,13 +13,19 @@ def main():
 
 def getKeywords(conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-    cur.execute("SELECT doro_post_address, id FROM store WHERE sido_name IS NULL")
-    result = cur
 
-    return result
+    cur.execute("SELECT doro_post_address, id FROM store WHERE sido_name IS NULL")
+
+    return cur
+
+def getTotalLength(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT count(*) FROM store WHERE sido_name IS NULL")
+
+    print(cur)
 
 def doSearch(keywords, conn):
-    total = 2000
+    total = getTotalLength()
     count = 0
 
     for row in keywords:
