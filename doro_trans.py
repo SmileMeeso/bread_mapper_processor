@@ -89,6 +89,7 @@ def getJusoData(jsonData):
     return juso
 
 def insertData (id, fullAddress, conn):
+    print("excute query... " + "UPDATE store SET full_address = '" + fullAddress + "' where id = " + str(id))
     cur = conn.cursor()
     cur.execute("UPDATE store SET full_address = '" + fullAddress + "' where id = " + str(id))
 
