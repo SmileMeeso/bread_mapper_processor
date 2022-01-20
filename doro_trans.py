@@ -36,7 +36,8 @@ def doSearch(keywords, conn):
         if newJson['results']:
             resultLength = len(newJson['results']['juso'])
 
-        print(resultLength)
+        print(newJson['results']['juso'])
+
         if resultLength > 1 :
             fullAddress = newJson['results']['juso'][0]['jibunAddr']
             insertData (id, fullAddress, conn)
