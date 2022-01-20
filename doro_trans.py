@@ -22,8 +22,9 @@ def getKeywords(conn):
 def getTotalLength(conn):
     cur = conn.cursor()
     cur.execute("SELECT count(*) FROM store WHERE sido_name IS NULL")
-
-    print(cur.fetchone())
+    result = cur.fetchone()
+    
+    return result[0]
 
 def doSearch(keywords, conn):
     total = getTotalLength(conn)
