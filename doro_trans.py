@@ -42,7 +42,7 @@ def doSearch(keywords, conn):
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
         
-        json = None
+        juso = None
 
         if newJson['results']:
             juso = newJson['results']['juso']
