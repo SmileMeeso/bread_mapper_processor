@@ -92,6 +92,7 @@ def insertData (id, fullAddress, conn):
     print("excute query... " + "UPDATE store SET full_address = '" + fullAddress + "' where id = " + str(id))
     cur = conn.cursor()
     cur.execute("UPDATE store SET full_address = '" + fullAddress + "' where id = " + str(id))
+    conn.commit()
 
 def getKeyword (address):
     splitedAddress = address.split(' ')
