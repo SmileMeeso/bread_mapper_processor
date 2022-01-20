@@ -35,7 +35,7 @@ def doSearch(keywords, conn):
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-    cur.execute("UPDATE store SET full_address = '" + fullAddress + "' where id = " + id)
+    cur.execute("UPDATE store SET full_address = '" + fullAddress + "' where id = " + str(id))
 
 def getKeyword (address):
     splitedAddress = address.split(' ')
