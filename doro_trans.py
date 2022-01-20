@@ -48,11 +48,11 @@ def doSearch(keywords, conn):
         
         if type(juso) is not list and juso is not None:
             fullAddress = newJson['results']['juso']['jibunAddr']
-            logging(count, total, fullAddress)
+            logging(count, total, fullAddress, id)
             insertData (id, fullAddress, conn)
         elif type(juso) is list:
             fullAddress = newJson['results']['juso'][0]['jibunAddr']
-            logging(count, total, fullAddress)
+            logging(count, total, fullAddress, id)
             insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
@@ -69,7 +69,7 @@ def getKeyword (address):
     else:
         return ""
 
-def logging(idx, total,fullAddress):
-    print("searching ...:" + fullAddress + "   " + str(idx) + "/" + str(total))
+def logging(idx, total,fullAddress,id):
+    print(str(id) + ". searching ...:" + fullAddress + "   " + str(idx) + "/" + str(total))
 
 main()
