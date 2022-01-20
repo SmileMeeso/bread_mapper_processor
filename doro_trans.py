@@ -19,7 +19,10 @@ def getKeywords(conn):
     return result
 
 def doSearch(keywords, conn):
-    total = sum(keywords.keys())
+    total = 0
+
+    for row in keywords:
+        total += 1
 
     for index, row in enumerate(keywords): 
         logging(index, total)
