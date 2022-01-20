@@ -16,12 +16,12 @@ def getKeywords(conn):
     cur.execute("SELECT doro_post_address, id FROM store WHERE sido_name IS NULL")
     result = cur
 
-    print(result)
-
     return result
 
 def doSearch(keywords, conn):
     total = 0
+
+    print(total)
 
     for row in keywords:
         total += 1
