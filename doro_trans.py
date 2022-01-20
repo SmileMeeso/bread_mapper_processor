@@ -8,7 +8,7 @@ import json
 def main():
     conn = psycopg2.connect("host=localhost dbname=bread_mapper_dev user=postgres password=skansmfqh@515")
     keywords = getKeywords(conn)
-    doSearch(keywords)
+    doSearch(keywords, conn)
 
 def getKeywords(conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
@@ -17,7 +17,7 @@ def getKeywords(conn):
 
     return result
 
-def doSearch(keywords):
+def doSearch(keywords, conn):
     for row in keywords: 
         keyword = getKeyword(row['doro_post_number'])
         print(keyword)
@@ -26,11 +26,16 @@ def doSearch(keywords):
 
         response = requests.get(url)
 
-        print(json.dumps(xmltodict.parse(response.text), indent=4))
+        print(json.loads(json.dumps(xmltodict.parse(response.text), indent=4), ensure_ascii=False))
+
+        insertData (id, fullAddress, conn)
+
+def insertData (id, fullAddress, conn):
+    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur.execute("UPDATE store SET full_address = '" + fullAddress + "' where id = " + id)
 
 def getKeyword (address):
     splitedAddress = address.split(' ')
-    print(splitedAddress[2][-1])
 
     if splitedAddress[2][-1] == '로':
         return splitedAddress[2] + " " + splitedAddress[3]
