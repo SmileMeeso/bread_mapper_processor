@@ -1,3 +1,4 @@
+from inspect import FullArgSpec
 import requests
 import psycopg2
 import psycopg2.extras
@@ -12,23 +13,25 @@ def main():
 
 def getKeywords(conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-    cur.execute("SELECT * FROM store where sido_name IS NULL LIMIT 10")
+    cur.execute("SELECT doro_post_address, id FROM store where sido_name IS NULL LIMIT 10")
     result = cur
 
     return result
 
 def doSearch(keywords, conn):
     for row in keywords: 
-        keyword = getKeyword(row['doro_post_number'])
+        keyword = getKeyword(row['doro_post_address'])
         print(keyword)
         
         url = "https://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDIyMDEyMDExMjAyMTExMjE1NzA=&currentPage=1&countPerPage=999&keyword=" + keyword
 
         response = requests.get(url)
 
-        print(json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False)))
+        newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
 
-        # insertData (id, fullAddress, conn)
+        fullAddress = newJson.results.juso[0].jibunAddr
+        id=row['id']
+        insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
