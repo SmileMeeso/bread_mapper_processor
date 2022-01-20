@@ -28,7 +28,7 @@ def doSearch(keywords, conn):
 
         print(json.loads(json.dumps(xmltodict.parse(response.text), indent=4), ensure_ascii=False))
 
-        insertData (id, fullAddress, conn)
+        # insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
