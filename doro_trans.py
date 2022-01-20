@@ -13,8 +13,10 @@ def main():
 
 def getKeywords(conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-    cur.execute("SELECT doro_post_address, id FROM store where sido_name IS NULL LIMIT 10")
+    cur.execute("SELECT doro_post_address, id FROM store WHERE sido_name IS NULL")
     result = cur
+
+    print(result)
 
     return result
 
