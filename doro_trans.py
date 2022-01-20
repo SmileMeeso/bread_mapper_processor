@@ -1,6 +1,8 @@
 import requests
 import psycopg2
 import psycopg2.extras
+import xmltodict
+import json
 
 # 도로명 주소 변환기
 def main():
@@ -17,12 +19,23 @@ def getKeywords(conn):
 
 def doSearch(keywords):
     for row in keywords: 
-        keyword = row['doro_post_number']
+        keyword = getKeyword(row['doro_post_number'])
+        print(keyword)
         
         url = "https://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDIyMDEyMDExMjAyMTExMjE1NzA=&currentPage=1&countPerPage=999&keyword=" + keyword
 
         response = requests.get(url)
 
-        print(response.text)
+        print(json.dumps(xmltodict.parse(response.text), indent=4))
+
+def getKeyword (address):
+    splitedAddress = address.split(' ')
+
+    if splitedAddress[2][-1] is '로':
+        return splitedAddress[2] + " " + splitedAddress[3]
+    elif splitedAddress[3][-1] is '로':
+        return splitedAddress[3] + " " + splitedAddress[4]
+    else:
+        return ""
 
 main()
