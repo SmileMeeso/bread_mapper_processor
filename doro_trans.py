@@ -47,12 +47,12 @@ def doSearch(keywords, conn):
         if newJson['results']:
             juso = newJson['results']['juso']
         
-        if type(juso) is not list and json is not None:
+        if type(juso) is not list and juso is not None:
             fullAddress = newJson['results']['juso']['jibunAddr']
+            insertData (id, fullAddress, conn)
         elif type(juso) is list:
             fullAddress = newJson['results']['juso'][0]['jibunAddr']
-
-        insertData (id, fullAddress, conn)
+            insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
