@@ -1,4 +1,3 @@
-from inspect import FullArgSpec
 import requests
 import psycopg2
 import psycopg2.extras
@@ -25,11 +24,9 @@ def doSearch(keywords, conn):
         total += 1
 
     for index, row in enumerate(keywords): 
-        logging(index, total)
+        logging(index + 1, total)
         keyword = getKeyword(row['doro_post_address'])
         id=row['id']
-
-        print(keyword)
         
         url = "https://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDIyMDEyMDExMjAyMTExMjE1NzA=&currentPage=1&countPerPage=999&keyword=" + keyword
 
