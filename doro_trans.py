@@ -25,7 +25,7 @@ def doSearch(keywords, conn):
         total += 1
 
     for index, row in enumerate(keywords): 
-        # logging(index + 1, total)
+        logging(index + 1, total)
         keyword = getKeyword(row['doro_post_address'])
         id=row['id']
         
@@ -54,6 +54,5 @@ def getKeyword (address):
 
 def logging(idx, total):
     print("searching ..." + str(idx) + "/" + str(total))
-
 
 main()
