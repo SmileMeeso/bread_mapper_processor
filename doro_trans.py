@@ -32,7 +32,6 @@ def doSearch(keywords, conn):
 
     for row in keywords:
         count += 1 
-        logging(count, total)
         keyword = getKeyword(row['doro_post_address'])
         id=row['id']
         
@@ -47,15 +46,19 @@ def doSearch(keywords, conn):
         if newJson['results']:
             juso = newJson['results']['juso']
         
+        print(juso)
+
         if type(juso) is not list and juso is not None:
+            logging(count, total)
             fullAddress = newJson['results']['juso']['jibunAddr']
             insertData (id, fullAddress, conn)
         elif type(juso) is list:
+            logging(count, total)
             fullAddress = newJson['results']['juso'][0]['jibunAddr']
             insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
-    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur = conn.cursor()
     cur.execute("UPDATE store SET full_address = '" + fullAddress + "' where id = " + str(id))
 
 def getKeyword (address):
