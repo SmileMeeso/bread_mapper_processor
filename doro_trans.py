@@ -1,5 +1,6 @@
 import requests
 import psycopg2
+import psycopg2.extras
 
 # 도로명 주소 변환기
 def main():
@@ -9,9 +10,9 @@ def main():
     doSearch(keywords)
 
 def getKeywords(conn):
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM store where sido_name IS NULL")
-    result = [r[0] for r in cur.fetchall()]
+    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM store where sido_name IS NULL LIMIT 10")
+    result = [r for r in cur.fetchall()]
 
     return result
 
