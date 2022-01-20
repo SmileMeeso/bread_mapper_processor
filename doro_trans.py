@@ -21,11 +21,11 @@ def getKeywords(conn):
 def doSearch(keywords, conn):
     total = 0
 
-    print(total)
-
     for row in keywords:
         total += 1
 
+    print(total)
+    
     for index, row in enumerate(keywords): 
         logging(index + 1, total)
         keyword = getKeyword(row['doro_post_address'])
