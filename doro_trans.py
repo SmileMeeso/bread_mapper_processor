@@ -24,8 +24,6 @@ def doSearch(keywords, conn):
     for row in keywords:
         total += 1
 
-    print(total)
-    
     for index, row in enumerate(keywords): 
         logging(index + 1, total)
         keyword = getKeyword(row['doro_post_address'])
@@ -36,17 +34,9 @@ def doSearch(keywords, conn):
         response = requests.get(url)
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
-
-        resultLength = 0
-
-        if newJson['results']:
-            resultLength = len(newJson['results']['juso'])
-
-        print(newJson['results']['juso'])
-
-        if resultLength > 0:
-            fullAddress = newJson['results']['juso']['jibunAddr']
-            insertData (id, fullAddress, conn)
+        
+        fullAddress = newJson['results']['juso']['jibunAddr']
+        insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
