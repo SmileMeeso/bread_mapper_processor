@@ -21,6 +21,8 @@ def getKeywords(conn):
 def doSearch(keywords, conn):
     for row in keywords: 
         keyword = getKeyword(row['doro_post_address'])
+        id=row['id']
+
         print(keyword)
         
         url = "https://www.juso.go.kr/addrlink/addrLinkApi.do?confmKey=U01TX0FVVEgyMDIyMDEyMDExMjAyMTExMjE1NzA=&currentPage=1&countPerPage=999&keyword=" + keyword
@@ -29,17 +31,18 @@ def doSearch(keywords, conn):
 
         newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
 
-        id=row['id']
-        resultLength = len(newJson['results']['juso'])
+        resultLength = 0
 
-        print(newJson['results']['juso'])
+        if newJson['results']:
+            resultLength = len(newJson['results']['juso'])
 
-        # if resultLength > 1 :
-        #     fullAddress = newJson['results']['juso'][0]['jibunAddr']
-        #     insertData (id, fullAddress, conn)
-        # elif resultLength == 1:
-        #     fullAddress = newJson['results']['juso']['jibunAddr']
-        #     insertData (id, fullAddress, conn)
+        print(resultLength)
+        if resultLength > 1 :
+            fullAddress = newJson['results']['juso'][0]['jibunAddr']
+            insertData (id, fullAddress, conn)
+        elif resultLength == 1:
+            fullAddress = newJson['results']['juso']['jibunAddr']
+            insertData (id, fullAddress, conn)
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
