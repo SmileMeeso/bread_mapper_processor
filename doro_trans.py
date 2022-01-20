@@ -20,12 +20,14 @@ def getKeywords(conn):
 
 def doSearch(keywords, conn):
     total = 0
+    count = 0
 
     for row in keywords:
         total += 1
 
-    for index, row in enumerate(keywords): 
-        logging(index + 1, total)
+    for row in keywords:
+        count += 1 
+        logging(count, total)
         keyword = getKeyword(row['doro_post_address'])
         id=row['id']
         
