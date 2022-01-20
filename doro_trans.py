@@ -19,7 +19,10 @@ def getKeywords(conn):
     return result
 
 def doSearch(keywords, conn):
-    for row in keywords: 
+    total = len(keywords)
+
+    for index, row in enumerate(keywords): 
+        logging(index, total)
         keyword = getKeyword(row['doro_post_address'])
         id=row['id']
 
@@ -38,10 +41,7 @@ def doSearch(keywords, conn):
 
         print(newJson['results']['juso'])
 
-        if resultLength > 1 :
-            fullAddress = newJson['results']['juso'][0]['jibunAddr']
-            insertData (id, fullAddress, conn)
-        elif resultLength == 1:
+        if resultLength > 0:
             fullAddress = newJson['results']['juso']['jibunAddr']
             insertData (id, fullAddress, conn)
 
@@ -58,5 +58,9 @@ def getKeyword (address):
         return splitedAddress[3] + " " + splitedAddress[4]
     else:
         return ""
+
+def logging(cur, total):
+    if (cur / 50) == 0:
+        print("searching ..." + str(cur) + "/" + str(total))
 
 main()
