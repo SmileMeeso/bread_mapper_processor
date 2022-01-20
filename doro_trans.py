@@ -39,21 +39,54 @@ def doSearch(keywords, conn):
 
         response = requests.get(url)
 
-        newJson = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
+        jsonData = json.loads(json.dumps(xmltodict.parse(response.text), indent=4, ensure_ascii=False))
         
-        juso = None
+        fullAddress = processGetFullAddress(jsonData)
+        processInsertDataWithFullAddress(fullAddress, count, total, id, conn)
 
-        if newJson['results']:
-            juso = newJson['results']['juso']
-        
-        if type(juso) is not list and juso is not None:
-            fullAddress = newJson['results']['juso']['jibunAddr']
-            logging(count, total, fullAddress, id)
-            insertData (id, fullAddress, conn)
-        elif type(juso) is list:
-            fullAddress = newJson['results']['juso'][0]['jibunAddr']
-            logging(count, total, fullAddress, id)
-            insertData (id, fullAddress, conn)
+def processGetFullAddress(jsonData):
+    try:
+        return getFullAddress(jsonData)
+    except:
+        print('skip...')
+        return None
+
+def getFullAddress(jsonData):
+    juso = getJusoData(jsonData)
+    fullAddress = getFullAddress(juso)
+
+    return fullAddress
+
+def processInsertDataWithFullAddress(fullAddress, count, total, id, conn):
+    try:
+        insertDataWithFullAddress (fullAddress, count, total, id, conn)
+    except:
+        print('err processInsertDataWithFullAddress...')
+        print(fullAddress)
+
+
+def insertDataWithFullAddress (fullAddress, count, total, id, conn):
+    if fullAddress is not None:
+        logging(count, total, fullAddress, id)
+        insertData (id, fullAddress, conn)
+
+def getFullAddress (juso):
+    fullAddress = None
+    
+    if type(juso) is not list and juso is not None:
+        fullAddress = juso['jibunAddr']
+    elif type(juso) is list:
+        fullAddress = juso[0]['jibunAddr']
+
+    return fullAddress
+
+def getJusoData(jsonData):
+    juso = None
+
+    if jsonData['results']:
+        juso = jsonData['results']['juso']
+
+    return juso
 
 def insertData (id, fullAddress, conn):
     cur = conn.cursor()
