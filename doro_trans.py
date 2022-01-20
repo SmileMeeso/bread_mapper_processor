@@ -19,11 +19,8 @@ def getKeywords(conn):
     return result
 
 def doSearch(keywords, conn):
-    total = 0
+    total = 2000
     count = 0
-
-    for row in keywords:
-        total += 1
 
     for row in keywords:
         count += 1 
