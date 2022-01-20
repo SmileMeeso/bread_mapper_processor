@@ -30,6 +30,7 @@ def doSearch(keywords):
 
 def getKeyword (address):
     splitedAddress = address.split(' ')
+    print(splitedAddress[2][-1])
 
     if splitedAddress[2][-1] is '로':
         return splitedAddress[2] + " " + splitedAddress[3]
