@@ -15,13 +15,13 @@ def main():
 def getKeywords(conn):
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
 
-    cur.execute("SELECT full_address, id FROM store WHERE doro_post_address IS NULL")
+    cur.execute("SELECT full_address, id FROM store WHERE doro_post_address IS NULL AND emd_name IS NULL")
 
     return cur.fetchall()
 
 def getTotalLength(conn):
     cur = conn.cursor()
-    cur.execute("SELECT count(*) FROM store WHERE doro_post_address IS NULL")
+    cur.execute("SELECT count(*) FROM store WHERE doro_post_address IS NULL AND emd_name IS NULL")
     result = cur.fetchone()
     
     return result[0]
